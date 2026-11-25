@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast } from "@yusufceng1z/ding-react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,33 +10,36 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { toast } from "@yusufceng1z/ding-react";
+import { applyTheme, getStoredTheme, type ThemeMode } from "@/lib/theme";
 import { useTimerStore } from "@/store/timerStore";
+
+// the 4 duration fields - one entry per input row
+const fields = [
+	{ key: "work", label: "Work (min)" },
+	{ key: "break", label: "Break (min)" },
+	{ key: "longBreak", label: "Long break (min)" },
+	{ key: "sessions", label: "Sessions before long break" },
+] as const;
 
 export default function Settings() {
 	const { workMin, breakMin, longBreakMin, sessionsBeforeLong, setDurations } = useTimerStore();
-	const [w, setW] = useState(workMin);
-	const [b, setB] = useState(breakMin);
-	const [l, setL] = useState(longBreakMin);
-	const [n, setN] = useState(sessionsBeforeLong);
-	const [themeMode, setThemeMode] = useState<"light" | "dark" | "system">(() => {
-		const saved = localStorage.getItem("theme");
-		if (saved === "light" || saved === "dark" || saved === "system") return saved;
-		return "system";
-	});
 
+	// local form state, seeded from the store; saved on Save click
+	const [form, setForm] = useState({
+		work: workMin,
+		break: breakMin,
+		longBreak: longBreakMin,
+		sessions: sessionsBeforeLong,
+	});
+	const [themeMode, setThemeMode] = useState<ThemeMode>(getStoredTheme);
+
+	// apply theme immediately + persist it; re-apply on OS change when mode is system
 	useEffect(() => {
-		const apply = () => {
-			const isDark =
-				themeMode === "dark" ||
-				(themeMode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-			document.documentElement.classList.toggle("dark", isDark);
-		};
-		apply();
+		applyTheme(themeMode);
 		localStorage.setItem("theme", themeMode);
 		const mq = window.matchMedia("(prefers-color-scheme: dark)");
 		const handler = () => {
-			if (themeMode === "system") apply();
+			if (themeMode === "system") applyTheme(themeMode);
 		};
 		mq.addEventListener("change", handler);
 		return () => mq.removeEventListener("change", handler);
@@ -44,45 +49,27 @@ export default function Settings() {
 		<main className="flex h-full flex-col items-center gap-6 p-6">
 			<h1 className="text-3xl font-semibold">Settings</h1>
 			<div className="flex w-full max-w-sm flex-col gap-4">
-				<div className="flex flex-col gap-1">
-					<Label>Work (min)</Label>
-					<Input
-						type="number"
-						value={w}
-						onChange={(e) => setW(Number(e.target.value))}
-					/>
-				</div>
-				<div className="flex flex-col gap-1">
-					<Label>Break (min)</Label>
-					<Input
-						type="number"
-						value={b}
-						onChange={(e) => setB(Number(e.target.value))}
-					/>
-				</div>
-				<div className="flex flex-col gap-1">
-					<Label>Long break (min)</Label>
-					<Input
-						type="number"
-						value={l}
-						onChange={(e) => setL(Number(e.target.value))}
-					/>
-				</div>
-				<div className="flex flex-col gap-1">
-					<Label>Sessions before long break</Label>
-					<Input
-						type="number"
-						value={n}
-						onChange={(e) => setN(Number(e.target.value))}
-					/>
-				</div>
+				{/* duration inputs */}
+				{fields.map((f) => (
+					<div key={f.key} className="flex flex-col gap-1">
+						<Label>{f.label}</Label>
+						<Input
+							type="number"
+							value={form[f.key]}
+							onChange={(e) => setForm({ ...form, [f.key]: Number(e.target.value) })}
+						/>
+					</div>
+				))}
+
 				<Button
 					onClick={() => {
-						setDurations(w, b, l, n);
+						setDurations(form.work, form.break, form.longBreak, form.sessions);
 						toast.success("Saved!");
 					}}>
 					Save
 				</Button>
+
+				{/* theme picker */}
 				<div className="flex items-center justify-between ">
 					<Label>Theme</Label>
 					<DropdownMenu>
@@ -93,9 +80,7 @@ export default function Settings() {
 								{themeMode}
 							</Button>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent
-							align="end"
-							className="">
+						<DropdownMenuContent align="end">
 							<DropdownMenuItem onClick={() => setThemeMode("system")}>
 								System
 							</DropdownMenuItem>

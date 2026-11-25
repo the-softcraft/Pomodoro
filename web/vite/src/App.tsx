@@ -3,21 +3,17 @@ import { Outlet } from "react-router";
 import { Toaster, toast } from "@yusufceng1z/ding-react";
 import { bind } from "cuelume";
 import { SsgoiRouteBoundary } from "@ssgoi/react/react-router";
+
 import { SsgoiProvider } from "./SsgoiProvider";
 import BottomTabBar from "./components/BottomTabBar";
+import { applyTheme, getStoredTheme } from "./lib/theme";
 
 export default function App() {
+	// one-time bootstrap: ui sound, toaster sound, saved theme
 	useEffect(() => {
 		const unbind = bind();
 		toast.configure({ sound: true, volume: 0.5 });
-		const saved = localStorage.getItem("theme") || "system";
-		const apply = () => {
-			const isDark =
-				saved === "dark" ||
-				(saved === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-			document.documentElement.classList.toggle("dark", isDark);
-		};
-		apply();
+		applyTheme(getStoredTheme());
 		return () => unbind();
 	}, []);
 
