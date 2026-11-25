@@ -1,4 +1,6 @@
-# AGENTS.md — WebView APK Template
+# AGENTS.md — Pomodoro
+
+Pomodoro timer app. A focus timer using the pomodoro technique (work/break intervals) packaged as an Android WebView APK.
 
 > **Strict Rule:** without my permission dont push
 
