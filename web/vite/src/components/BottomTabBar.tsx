@@ -1,12 +1,10 @@
 import { NavLink } from "react-router";
 import homeIcon from "../assets/icons/home.svg";
 import settingsIcon from "../assets/icons/settings.svg";
-import calendarIcon from "../assets/icons/calendar.svg";
 import { cn } from "cn";
 
 const tabs = [
 	{ to: "/", label: "Home", icon: homeIcon },
-	{ to: "/calendar", label: "Calendar", icon: calendarIcon },
 	{ to: "/settings", label: "Settings", icon: settingsIcon },
 ];
 
@@ -29,7 +27,6 @@ export default function BottomTabBar() {
 								alt={t.label}
 								className={cn("h-5 w-5", isActive ? "brightness-0 invert" : "dark:invert")}
 							/>
-							<span className="text-xs">{t.label}</span>
 						</>
 					)}
 				</NavLink>

@@ -10,6 +10,14 @@ export default function App() {
 	useEffect(() => {
 		const unbind = bind();
 		toast.configure({ sound: true, volume: 0.5 });
+		const saved = localStorage.getItem("theme") || "system";
+		const apply = () => {
+			const isDark =
+				saved === "dark" ||
+				(saved === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+			document.documentElement.classList.toggle("dark", isDark);
+		};
+		apply();
 		return () => unbind();
 	}, []);
 
@@ -19,10 +27,9 @@ export default function App() {
 				position="top-center"
 				theme="system"
 			/>
-
-			<div className="relative z-0 min-h-screen overflow-x-clip">
+			<div className="relative z-0 min-h-screen overflow-x-clip pb-30">
 				<SsgoiRouteBoundary>
-					<div className="bg-background min-h-screen">
+					<div className="bg-background h-screen">
 						<Outlet />
 					</div>
 				</SsgoiRouteBoundary>
