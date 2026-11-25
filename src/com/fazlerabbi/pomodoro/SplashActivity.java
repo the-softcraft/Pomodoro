@@ -1,4 +1,4 @@
-package com.fazlerabbi.silicon;
+package com.fazlerabbi.pomodoro;
 
 import android.app.Activity;
 import android.content.Intent;

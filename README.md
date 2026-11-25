@@ -1,13 +1,13 @@
 <div align="center">
 
 <p align="center">
-  <img src="icon.png" alt="Silicon - WebView apk template" width="200" height="" />
+  <img src="icon.png" alt="Pomodoro - focus timer WebView app" width="200" height="" />
 </p>
 
-<h1 align="center">WebView APK Template</h1>
+<h1 align="center">Pomodoro</h1>
 
 <p align="center">
-  <em>Turn any HTML/CSS/JS (supports vite react) website into an installable Android app — no Kotlin, no Android SDK, no browser chrome.</em>
+  <em>Focus timer with a native WebView shell — no Kotlin, no Android SDK, no browser chrome.</em>
 </p>
 
 <p align="center">
@@ -93,7 +93,7 @@ The shell injects a `Native` object into JS — camera, mic, geolocation, file p
 1. Fork / clone this repo.
 2. Put your app in `app/` — keep `app/index.html` as the entry point. Plain HTML/CSS/JS works as-is; a built **Vite + React** app also works.
 3. Push to GitHub → the **Build APK** workflow runs automatically.
-4. Go to **Actions** → latest run → download the **Silicon** artifact.
+4. Go to **Actions** → latest run → download the **Pomodoro** artifact.
 5. Copy the APK to your phone and install.
 
 ### ✅ What you can put in `app/`
