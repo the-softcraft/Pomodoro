@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
-import Tomato from "@/components/Tomato";
 import { beep } from "@/lib/beep";
 import { useTimerStore } from "@/store/timerStore";
 
@@ -51,16 +50,14 @@ export default function Home() {
 	const s = (secondsLeft % 60).toString().padStart(2, "0");
 
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-center gap-6 p-6 ">
-			{/* header: mascot + mode + completed count */}
+		<main className="flex min-h-screen flex-col items-center  gap-6 p-6 ">
+			{/* header: mode + completed count */}
 			<section className="flex flex-col items-center gap-2">
-				<Tomato className="h-14 w-14 sm:h-16 sm:w-16 drop-shadow" />
 				<h1 className="text-[60px] sm:text-[70px] font-semibold capitalize">
 					{mode === "longBreak" ? "Long Break" : mode}
 				</h1>
 				<p className="text-muted-foreground text-lg">Completed: {completed}</p>
 			</section>
-
 			<div className="flex flex-col items-center gap-6">
 				{/* circular progress + countdown */}
 				<div className="relative flex items-center justify-center w-64 md:w-80">
@@ -97,7 +94,11 @@ export default function Home() {
 				{/* controls */}
 				<div className="flex gap-3">
 					{!running ? (
-						<Button data-cuelume-tap onClick={start}>Start</Button>
+						<Button
+							data-cuelume-tap
+							onClick={start}>
+							Start
+						</Button>
 					) : (
 						<Button
 							data-cuelume-tap

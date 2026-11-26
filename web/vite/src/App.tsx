@@ -23,7 +23,7 @@ export default function App() {
 				position="top-center"
 				theme="system"
 			/>
-			<div className="relative z-0 min-h-screen overflow-x-clip pb-30">
+			<div className="relative z-0 min-h-screen overflow-x-clip [@media(max-height:710px)]:pb-30">
 				<SsgoiRouteBoundary>
 					<div className="bg-background h-screen">
 						<Outlet />

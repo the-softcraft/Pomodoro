@@ -46,12 +46,14 @@ export default function Settings() {
 	}, [themeMode]);
 
 	return (
-		<main className="flex h-full flex-col items-center gap-6 p-6">
+		<main className="flex min-h-screen flex-col items-center gap-6 p-6">
 			<h1 className="text-3xl font-semibold">Settings</h1>
 			<div className="flex w-full max-w-sm flex-col gap-4">
 				{/* duration inputs */}
 				{fields.map((f) => (
-					<div key={f.key} className="flex flex-col gap-1">
+					<div
+						key={f.key}
+						className="flex flex-col gap-1">
 						<Label>{f.label}</Label>
 						<Input
 							type="number"

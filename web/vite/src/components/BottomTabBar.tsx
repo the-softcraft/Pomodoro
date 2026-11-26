@@ -17,7 +17,7 @@ export default function BottomTabBar() {
 					to={t.to}
 					className={({ isActive }) =>
 						`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition ${
-							isActive ? "bg-primary dark:bg-accent text-white" : "text-muted-foreground"
+							isActive ? "bg-primary  text-black" : "text-muted-foreground"
 						}`
 					}>
 					{({ isActive }) => (
