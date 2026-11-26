@@ -21,7 +21,7 @@
 <h2 align="center">Download</h2>
 
 <p align="center">
-  <a href="https://github.com/fazle-rabbi-dev/Html-Css-Js-Web-View-Apk-Template/releases/latest">
+  <a href="https://github.com/the-softcraft/Pomodoro/releases/download/v1.0.0/Pomodoro.apk">
     <img src="https://img.shields.io/badge/Download-Latest%20APK-2563eb?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
   </a>
 </p>
